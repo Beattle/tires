@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
 use App\{CarModel, Imports\TiresImport, Tires, Vendor};
 use Illuminate\{Http\Request, Support\Facades\DB, Support\Facades\Redirect, Support\Facades\Schema};
 use Maatwebsite\Excel\Facades\Excel;
@@ -45,10 +44,10 @@ class TiresController extends Controller
             'price' =>'required'
         ]);
         $data = $request->except('_token');
-        if ($data['model_id']) {
+        if (!empty($data['model_id'])) {
             $data['model_id'] = $this->createModel($data['model_id']);
         }
-        if ($data['vendor_id']) {
+        if (!empty($data['vendor_id'])) {
             $data['vendor_id'] = $this->createVendor($data['vendor_id']);
         }
 
@@ -72,10 +71,10 @@ class TiresController extends Controller
     {
         $id = $request->get('id');
         $data = $request->except('_token', 'id');
-        if ($data['model_id']) {
+        if (!empty($data['model_id'])) {
             $data['model_id'] = $this->createModel($data['model_id']);
         }
-        if ($data['vendor_id']) {
+        if (!empty($data['vendor_id'])) {
             $data['vendor_id'] = $this->createVendor($data['vendor_id']);
         }
         $data['missing'] = json_encode([]);
